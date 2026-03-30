@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Резюме, яке читають — Гайд за 300 грн</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --accent: #E8521A; --text: #2C2C2A; --muted: #888780; --surface: #F7F5F0; --white: #FFFFFF; }
+body { font-family: 'Manrope', sans-serif; color: var(--text); background: var(--white); }
+.page { display: none; }
+.page.active { display: block; }
+
+.hero { background: #1A1A1A; color: #fff; padding: 3rem 1.5rem 4rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(232,82,26,0.3) 0%, transparent 70%); pointer-events: none; }
+.badge { display: inline-block; background: rgba(232,82,26,0.15); border: 1px solid rgba(232,82,26,0.4); color: #FF7043; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 1.5rem; }
+.hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(1.6rem, 5vw, 2.6rem); font-weight: 900; line-height: 1.15; margin-bottom: 1.25rem; max-width: 540px; }
+.hero h1 span { color: #FF7043; }
+.hero p { font-size: 16px; color: rgba(255,255,255,0.7); max-width: 460px; line-height: 1.7; margin-bottom: 2rem; }
+.price-tag { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; }
+.price-now { font-family: 'Unbounded', sans-serif; font-size: 2rem; font-weight: 700; color: #fff; }
+.price-old { font-size: 18px; color: var(--muted); text-decoration: line-through; }
+.price-save { background: #FF7043; color: #fff; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+.btn-primary { display: inline-block; background: #E8521A; color: #fff; font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; padding: 16px 32px; border-radius: 12px; border: none; cursor: pointer; text-align: center; width: 100%; max-width: 380px; transition: transform 0.15s, background 0.15s; }
+.btn-primary:hover { background: #c94315; transform: translateY(-2px); }
+.trust-line { display: flex; align-items: center; gap: 8px; margin-top: 1rem; color: rgba(255,255,255,0.45); font-size: 12px; flex-wrap: wrap; }
+.trust-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+
+.section { padding: 3rem 1.5rem; }
+.section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+.section h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(1.2rem, 3.5vw, 1.8rem); font-weight: 700; line-height: 1.25; margin-bottom: 1.5rem; }
+
+.pain-list { display: flex; flex-direction: column; gap: 12px; }
+.pain-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: #FFF3F0; border-left: 3px solid #E8521A; border-radius: 0 8px 8px 0; }
+.pain-item p { font-size: 14px; line-height: 1.5; }
+
+.inside-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+.inside-card { background: var(--surface); border-radius: 12px; padding: 16px; }
+.inside-card .num { font-family: 'Unbounded', sans-serif; font-size: 1.5rem; font-weight: 900; color: #E8521A; margin-bottom: 4px; }
+.inside-card p { font-size: 13px; line-height: 1.4; }
+
+.author-block { background: var(--surface); border-radius: 16px; padding: 1.5rem; display: flex; gap: 16px; align-items: flex-start; }
+.author-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #E8521A, #FFB347); display: flex; align-items: center; justify-content: center; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 18px; color: #fff; flex-shrink: 0; }
+.author-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+.author-title { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.author-text { font-size: 13px; line-height: 1.6; }
+
+.reviews { display: flex; flex-direction: column; gap: 12px; }
+.review-card { background: var(--surface); border-radius: 12px; padding: 16px; }
+.review-stars { color: #FFB347; font-size: 13px; margin-bottom: 6px; }
+.review-text { font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
+.review-author { font-size: 12px; color: var(--muted); font-weight: 600; }
+
+.form-section { background: #1A1A1A; padding: 3rem 1.5rem; color: #fff; }
+.form-section h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(1.2rem, 3.5vw, 1.8rem); font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+.form-section .sub { color: rgba(255,255,255,0.55); font-size: 14px; margin-bottom: 2rem; }
+.buy-form { display: flex; flex-direction: column; gap: 12px; max-width: 400px; }
+.buy-form input { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 14px 16px; font-size: 15px; color: #fff; font-family: 'Manrope', sans-serif; outline: none; transition: border 0.15s; }
+.buy-form input::placeholder { color: rgba(255,255,255,0.35); }
+.buy-form input:focus { border-color: #FF7043; }
+.secure-note { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.35); font-size: 11px; margin-top: 4px; }
+
+/* THANK YOU */
+.ty-hero { background: #1A1A1A; padding: 3rem 1.5rem; color: #fff; text-align: center; }
+.ty-check { width: 64px; height: 64px; border-radius: 50%; background: rgba(72,199,142,0.15); border: 2px solid #48C78E; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 28px; }
+.ty-hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; margin-bottom: 0.75rem; }
+.ty-hero p { color: rgba(255,255,255,0.6); font-size: 15px; max-width: 380px; margin: 0 auto; line-height: 1.6; }
+
+.ty-steps { padding: 2.5rem 1.5rem; }
+.ty-steps h3 { font-family: 'Unbounded', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 1.25rem; }
+.step-list { display: flex; flex-direction: column; gap: 12px; }
+.step-row { display: flex; gap: 12px; align-items: flex-start; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; background: #E8521A; color: #fff; font-family: 'Unbounded', sans-serif; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.step-row p { font-size: 14px; line-height: 1.5; }
+.step-row strong { font-weight: 600; }
+
+/* UPSELL */
+.upsell-wrap { padding: 0 1.5rem 3rem; }
+.upsell-divider { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; padding-top: 0.5rem; }
+.upsell-divider span { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.upsell-divider::before, .upsell-divider::after { content: ''; flex: 1; height: 1px; background: var(--muted); opacity: 0.3; }
+
+.upsell-card { background: #1A1A1A; border-radius: 20px; overflow: hidden; }
+.upsell-top { background: #1e1e1e; padding: 1.75rem 1.5rem 1.25rem; position: relative; overflow: hidden; }
+.upsell-top::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(232,82,26,0.12); pointer-events: none; }
+.upsell-eyebrow { display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; }
+.upsell-step-badge { background: #E8521A; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
+.upsell-new { border: 1px solid rgba(255,183,71,0.5); color: #FFB347; font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 100px; }
+.upsell-card h3 { font-family: 'Unbounded', sans-serif; font-size: 1.15rem; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 0.6rem; }
+.upsell-sub { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+.upsell-body { padding: 1.25rem 1.5rem 1.5rem; }
+.upsell-feats { display: flex; flex-direction: column; gap: 9px; margin-bottom: 1.5rem; }
+.upsell-feat { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.4; }
+.feat-icon { color: #FF7043; flex-shrink: 0; margin-top: 1px; }
+
+.upsell-price-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+.upsell-price-now { font-family: 'Unbounded', sans-serif; font-size: 1.6rem; font-weight: 700; color: #fff; }
+.upsell-price-old { font-size: 14px; color: rgba(255,255,255,0.35); text-decoration: line-through; }
+.upsell-discount { background: rgba(232,82,26,0.2); border: 1px solid rgba(232,82,26,0.4); color: #FF7043; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; }
+
+.timer-row { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; background: rgba(255,255,255,0.05); padding: 10px 14px; border-radius: 10px; }
+.timer-label { font-size: 12px; color: rgba(255,255,255,0.45); flex: 1; }
+.timer-nums { font-family: 'Unbounded', sans-serif; font-size: 1rem; font-weight: 700; color: #FF7043; }
+
+.upsell-cta { width: 100%; background: #E8521A; color: #fff; font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; padding: 15px 20px; border-radius: 12px; border: none; cursor: pointer; transition: background 0.15s, transform 0.15s; margin-bottom: 10px; }
+.upsell-cta:hover { background: #c94315; transform: translateY(-1px); }
+.skip-link { text-align: center; font-size: 12px; color: rgba(255,255,255,0.3); cursor: pointer; text-decoration: underline; padding: 4px; display: block; }
+
+.ty-footer { padding: 2rem 1.5rem; text-align: center; }
+.ty-footer p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- LANDING PAGE -->
+<div id="page-landing" class="page active">
+  <section class="hero">
+    <div class="badge">Гайд · Крок 1 з 2</div>
+    <h1>Резюме, яке <span>читають</span> — і запрошують на співбесіду</h1>
+    <p>Дізнайся, чому тебе ігнорують рекрутери — і виправ це за один вечір. Покрокова система + шаблони + розбір реальних помилок.</p>
+    <div class="price-tag">
+      <span class="price-now">300 грн</span>
+      <span class="price-old">600 грн</span>
+      <span class="price-save">-50%</span>
+    </div>
+    <button class="btn-primary" onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})">Хочу отримати гайд →</button>
+    <div class="trust-line">
+      <span>Миттєва доставка на пошту</span>
+      <span class="trust-dot"></span>
+      <span>Безпечна оплата</span>
+      <span class="trust-dot"></span>
+      <span>Гарантія результату</span>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--surface);">
+    <div class="section-label">Впізнаєш себе?</div>
+    <h2>Твоє резюме є — але відповідей немає</h2>
+    <div class="pain-list">
+      <div class="pain-item"><p>✗ &nbsp;Надсилаєш десятки заявок, а у відповідь — тиша або автовідмова</p></div>
+      <div class="pain-item"><p>✗ &nbsp;Не розумієш, що не так: досвід є, але дзвінків від рекрутерів немає</p></div>
+      <div class="pain-item"><p>✗ &nbsp;Резюме виглядає «як у всіх» і губиться серед сотень інших</p></div>
+      <div class="pain-item"><p>✗ &nbsp;Починаєш сумніватися в собі, хоча проблема — у поданні, а не в тобі</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Що всередині</div>
+    <h2>Все, щоб потрапити на співбесіду</h2>
+    <div class="inside-grid">
+      <div class="inside-card"><div class="num">7</div><p>критичних помилок, які знищують резюме ще до першого перегляду</p></div>
+      <div class="inside-card"><div class="num">3</div><p>готових шаблони резюме під різні сфери та рівні досвіду</p></div>
+      <div class="inside-card"><div class="num">ATS</div><p>чек-лист оптимізації — щоб пройти автоматичний відбір</p></div>
+      <div class="inside-card"><div class="num">✓</div><p>Формула achievement-рядків: як описати досвід цифрами і WOW-ефектом</p></div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--surface);">
+    <div class="section-label">Автори</div>
+    <h2>Хто написав цей гайд</h2>
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div class="author-block">
+        <div class="author-avatar">ДК</div>
+        <div>
+          <div class="author-name">Денис К.</div>
+          <div class="author-title">5+ років в рекрутингу · 300+ наймів</div>
+          <div class="author-text">Переглянув тисячі резюме зсередини. Знаю, чому одних запрошують, а інших — ні.</div>
+        </div>
+      </div>
+      <div class="author-block">
+        <div class="author-avatar">МП</div>
+        <div>
+          <div class="author-name">Максим П.</div>
+          <div class="author-title">Перейшов у нову сферу · 3 офери за 3 тижні</div>
+          <div class="author-text">Пройшов шлях кандидата і побудував систему, яка справді працює.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Відгуки</div>
+    <h2>Що кажуть люди</h2>
+    <div class="reviews">
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">«Після гайду переробила резюме за вечір. Наступного дня вже було 2 дзвінки від рекрутерів — і це після місяця тиші.»</div><div class="review-author">Аліна В., маркетолог</div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">«Думав, що резюме нормальне. Виявилось — там було 5 з 7 помилок з гайду. Тепер розумію, чому мовчали.»</div><div class="review-author">Олег Т., розробник</div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">«Найкорисніша інвестиція 300 грн у пошук роботи. Отримав офер через 2 тижні після перероблення.»</div><div class="review-author">Катерина М., аналітик</div></div>
+    </div>
+  </section>
+
+  <section class="form-section" id="order-form">
+    <h2>Отримати гайд зараз</h2>
+    <div class="sub">Введи свої дані — гайд прийде на пошту протягом 5 хвилин</div>
+    <div class="buy-form">
+      <input type="text" id="buyer-name" placeholder="Ім'я" />
+      <input type="email" id="buyer-email" placeholder="Email для отримання гайду" />
+      <input type="tel" id="buyer-phone" placeholder="Телефон (необов'язково)" />
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px;">
+        <span style="color: rgba(255,255,255,0.7); font-size: 14px;">«Резюме, яке читають»</span>
+        <span style="font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 16px;">300 грн</span>
+      </div>
+      <button class="btn-primary" onclick="handleBuy()">Оплатити та отримати →</button>
+      <div class="secure-note"><span>🔒</span><span>Безпечна оплата · Гайд одразу після оплати</span></div>
+    </div>
+  </section>
+</div>
+
+<!-- THANK YOU PAGE -->
+<div id="page-thankyou" class="page">
+  <section class="ty-hero">
+    <div class="ty-check">✓</div>
+    <h1>Оплата успішна!</h1>
+    <p id="ty-msg">Гайд вже летить на твою пошту. Перевір вхідні (і спам — про всяк випадок).</p>
+  </section>
+
+  <div class="ty-steps">
+    <h3>Що робити далі?</h3>
+    <div class="step-list">
+      <div class="step-row"><div class="step-num">1</div><p><strong>Перевір пошту</strong> — лист із гайдом вже надіслано</p></div>
+      <div class="step-row"><div class="step-num">2</div><p><strong>Виділи вечір</strong> — пройди гайд і переробни резюме за ним</p></div>
+      <div class="step-row"><div class="step-num">3</div><p><strong>Надсилай заявки</strong> — і чекай на запрошення на співбесіду</p></div>
+    </div>
+  </div>
+
+  <div class="upsell-wrap">
+    <div class="upsell-divider"><span>Наступний крок</span></div>
+    <div class="upsell-card">
+      <div class="upsell-top">
+        <div class="upsell-eyebrow">
+          <span class="upsell-step-badge">Гайд №2</span>
+          <span class="upsell-new">Спеціальна ціна для тебе</span>
+        </div>
+        <h3>HR-скринінг: 20 питань, на які рекрутери чекають правильних відповідей</h3>
+        <div class="upsell-sub">Резюме спрацювало — тебе запросили. Тепер головне не злити першу розмову. Цей гайд готує тебе до кожного питання HR.</div>
+      </div>
+      <div class="upsell-body">
+        <div class="upsell-feats">
+          <div class="upsell-feat"><span class="feat-icon">✓</span>20 найчастіших питань HR + готові скрипти відповідей</div>
+          <div class="upsell-feat"><span class="feat-icon">✓</span>Як відповісти на «Розкажи про себе» за 2 хвилини і зацікавити</div>
+          <div class="upsell-feat"><span class="feat-icon">✓</span>Що НЕ говорити на скринінгу — 8 фраз, які вбивають кандидата</div>
+          <div class="upsell-feat"><span class="feat-icon">✓</span>Як говорити про очікувану зарплату і не продешевити</div>
+          <div class="upsell-feat"><span class="feat-icon">✓</span>Питання від кандидата, які показують тебе з кращого боку</div>
+        </div>
+        <div class="upsell-price-row">
+          <span class="upsell-price-now">500 грн</span>
+          <span class="upsell-price-old">900 грн</span>
+          <span class="upsell-discount">-44%</span>
+        </div>
+        <div class="timer-row">
+          <span class="timer-label">Ця ціна для тебе діє ще:</span>
+          <span class="timer-nums" id="timer">14:59</span>
+        </div>
+        <button class="upsell-cta" onclick="handleUpsell()">Так, хочу гайд №2 за 500 грн →</button>
+        <span class="skip-link" onclick="skipUpsell()">Ні, дякую — я сам розберусь</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ty-footer">
+    <p>Є питання? Пиши нам — відповімо швидко.<br>Дякуємо, що обрав нас. Успіхів у пошуку! 🙌</p>
+  </div>
+</div>
+
+<script>
+function handleBuy() {
+  const name = document.getElementById('buyer-name').value.trim();
+  const email = document.getElementById('buyer-email').value.trim();
+  if (!name || !email) { alert("Будь ласка, введи ім'я та email"); return; }
+  document.getElementById('ty-msg').textContent = 'Гайд вже летить на ' + email + '. Перевір вхідні (і спам — про всяк випадок).';
+  document.getElementById('page-landing').classList.remove('active');
+  document.getElementById('page-thankyou').classList.add('active');
+  window.scrollTo(0, 0);
+  startTimer();
+}
+function startTimer() {
+  let total = 14 * 60 + 59;
+  const el = document.getElementById('timer');
+  const iv = setInterval(() => {
+    if (total <= 0) { clearInterval(iv); el.textContent = '00:00'; return; }
+    total--;
+    const m = Math.floor(total / 60);
+    const s = total % 60;
+    el.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }, 1000);
+}
+function handleUpsell() {
+  alert('Переходимо до оплати гайду №2 «HR-скринінг» — 500 грн\n\n(Тут підключається платіжний шлюз)');
+}
+function skipUpsell() {
+  document.querySelector('.upsell-wrap').style.display = 'none';
+}
+</script>
+</body>
+</html>
