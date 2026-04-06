@@ -449,20 +449,17 @@ function startTimer() {
   }, 1000);
 }
 
-// Scroll depth tracking
+// Scroll depth tracking — окремі події
 (function() {
-  const depths = [25, 50, 75, 100];
   const fired = {};
   window.addEventListener('scroll', function() {
     const scrolled = window.scrollY + window.innerHeight;
     const total = document.documentElement.scrollHeight;
     const pct = Math.round((scrolled / total) * 100);
-    depths.forEach(function(d) {
-      if (pct >= d && !fired[d]) {
-        fired[d] = true;
-        fbq('trackCustom', 'ScrollDepth', { depth: d + '%', page: 'landing' });
-      }
-    });
+    if (pct >= 25 && !fired[25]) { fired[25] = true; fbq('trackCustom', 'Scroll25'); }
+    if (pct >= 50 && !fired[50]) { fired[50] = true; fbq('trackCustom', 'Scroll50'); }
+    if (pct >= 75 && !fired[75]) { fired[75] = true; fbq('trackCustom', 'Scroll75'); }
+    if (pct >= 100 && !fired[100]) { fired[100] = true; fbq('trackCustom', 'Scroll100'); }
   }, { passive: true });
 })();
 
